@@ -8,4 +8,6 @@ public interface GetProductsPort {
 
     List<Product> getProducts();
 
+    Boolean existsById(Long productId);
+
 }

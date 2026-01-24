@@ -1,22 +1,32 @@
 package org.inrikys.domain.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import org.inrikys.domain.models.Review;
-import org.inrikys.domain.ports.GetProductByIdPort;
-import org.inrikys.domain.ports.GetUserByEmailPort;
-import org.inrikys.domain.ports.ReviewProductPort;
+import org.inrikys.domain.ports.CreateNewReviewPort;
+import org.inrikys.domain.ports.GetProductsPort;
+import org.inrikys.domain.ports.GetUsersPort;
 
-@ApplicationScoped
 public class CreateNewReview {
 
-    private GetUserByEmailPort getUserById;
-    private GetProductByIdPort getProductById;
-    private ReviewProductPort reviewProduct;
+    private final GetUsersPort getUsersPort;
+    private final GetProductsPort getProductsPort;
+    private final CreateNewReviewPort createNewReviewPort;
+
+    public CreateNewReview(GetUsersPort getUsersPort, GetProductsPort getProductsPort, CreateNewReviewPort createNewReviewPort) {
+        this.getUsersPort = getUsersPort;
+        this.getProductsPort = getProductsPort;
+        this.createNewReviewPort = createNewReviewPort;
+    }
 
     public Review create(Review review) {
 
-        return null;
+        if (!isValid(review)) {
+            throw new IllegalArgumentException("User or Product doesn't exist");
+        }
 
+        return createNewReviewPort.createNewReview(review);
     }
 
+    private boolean isValid(Review review) {
+        return getUsersPort.existsById(review.getUserId()) && getProductsPort.existsById(review.getProductId());
+    }
 }

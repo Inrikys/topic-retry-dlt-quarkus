@@ -2,12 +2,8 @@ package org.inrikys.configs;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-import org.inrikys.domain.ports.CreateNewProductPort;
-import org.inrikys.domain.ports.CreateNewUserPort;
-import org.inrikys.domain.ports.GetProductsPort;
-import org.inrikys.domain.services.CreateNewProduct;
-import org.inrikys.domain.services.CreateNewUser;
-import org.inrikys.domain.services.GetProducts;
+import org.inrikys.domain.ports.*;
+import org.inrikys.domain.services.*;
 
 public class Configuration {
 
@@ -27,6 +23,18 @@ public class Configuration {
     @ApplicationScoped
     public GetProducts getProducts(GetProductsPort getProductsPort) {
         return new GetProducts(getProductsPort);
+    }
+
+    @Produces
+    @ApplicationScoped
+    public GetUsers getUsers(GetUsersPort getUsersPort) {
+        return new GetUsers(getUsersPort);
+    }
+
+    @Produces
+    @ApplicationScoped
+    public CreateNewReview createNewReview(GetUsersPort getUsersPort, GetProductsPort getProductsPort, CreateNewReviewPort createNewReviewPort) {
+        return new CreateNewReview(getUsersPort, getProductsPort, createNewReviewPort);
     }
 
 }

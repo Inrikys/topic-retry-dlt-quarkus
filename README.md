@@ -36,10 +36,11 @@ A aplicação foi pensada para exercitar:
 - `id`
 - `productId`
 - `userId`
-- `score` (1 a 5)
-- `commentery`
-- `status` (`APROVED`, `SUSPECT`)
+- `rating` (1 a 5)
+- `commentary`
+- `status` (`APPROVED`, `SUSPECT`)
 - `creationDate`
+- `updateDate`
 
 ### User
 - `id`

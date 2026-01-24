@@ -5,17 +5,17 @@ import org.inrikys.domain.models.Review;
 
 public record CreateReviewRequest(
         @JsonProperty("userId")
-        String userId,
+        Long userId,
 
         @JsonProperty("rating")
-        String rating,
+        Integer rating,
 
         @JsonProperty("commentary")
         String commentary
 ) {
 
-    public Review toReview(String productId) {
-        return null;
+    public Review toReview(Long productId) {
+        return new Review(null, productId, userId, rating, commentary);
     }
 
 }

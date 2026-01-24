@@ -1,4 +1,4 @@
-package org.inrikys.adapters.store;
+package org.inrikys.adapters;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.inrikys.adapters.store.entities.ProductEntity;
@@ -7,6 +7,7 @@ import org.inrikys.domain.models.Product;
 import org.inrikys.domain.ports.GetProductsPort;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class GetProductsAdapter implements GetProductsPort {
@@ -19,10 +20,13 @@ public class GetProductsAdapter implements GetProductsPort {
 
     @Override
     public List<Product> getProducts() {
-
         List<ProductEntity> productEntities = productRepository.findAll().list();
-        List<Product> products = productEntities.stream().map(ProductEntity::toProduct).toList();
+        return productEntities.stream().map(ProductEntity::toProduct).toList();
+    }
 
-        return products;
+    @Override
+    public Boolean existsById(Long productId) {
+        Optional<ProductEntity> possibleProduct = productRepository.findByIdOptional(productId);
+        return possibleProduct.isPresent();
     }
 }
