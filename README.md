@@ -194,7 +194,9 @@ kafka-topics.bat --create --topic reviews --bootstrap-server localhost:9092 --pa
 
 In the new CMD which is open run below command
 Producer (send messages):
-kafka-console-producer.bat --topic reviews --bootstrap-server localhost:9092
+kafka-console-producer.bat --topic reviews-created --bootstrap-server localhost:9092
+kafka-console-producer.bat --topic reviews-created-retry --bootstrap-server localhost:9092
+kafka-console-producer.bat --topic reviews-created-dlt --bootstrap-server localhost:9092
 
 Open another New CMD: Run below
 kafka-console-consumer.bat --topic reviews --from-beginning --bootstrap-server localhost:9092

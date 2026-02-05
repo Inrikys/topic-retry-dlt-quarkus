@@ -9,10 +9,26 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 public class ReviewProducer {
 
     @Inject
-    @Channel("reviews-out")
+    @Channel("reviews-created-out")
     Emitter<String> reviewEmitter;
+
+    @Inject
+    @Channel("reviews-created-retry-out")
+    Emitter<String> reviewRetryEmitter;
+
+    @Inject
+    @Channel("reviews-created-dlt-out")
+    Emitter<String> reviewDltEmitter;
 
     public Emitter<String> getReviewEmitter() {
         return reviewEmitter;
+    }
+
+    public Emitter<String> getReviewRetryEmitter() {
+        return reviewRetryEmitter;
+    }
+
+    public Emitter<String> getReviewDltEmitter() {
+        return reviewDltEmitter;
     }
 }
