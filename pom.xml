@@ -83,6 +83,18 @@
             <version>3.1.1</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.amazonservices</groupId>
+            <artifactId>quarkus-amazon-sqs</artifactId>
+            <version>3.14.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>url-connection-client</artifactId>
+            <version>2.41.24</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

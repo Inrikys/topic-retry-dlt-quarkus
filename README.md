@@ -200,3 +200,24 @@ kafka-console-producer.bat --topic reviews-created-dlt --bootstrap-server localh
 
 Open another New CMD: Run below
 kafka-console-consumer.bat --topic reviews --from-beginning --bootstrap-server localhost:9092
+
+
+## SQS
+Criar fila  
+aws --endpoint-url=http://localhost:4566 \
+sqs create-queue \
+--queue-name fila-email
+
+Validar se fila foi criada  
+aws --endpoint-url=http://localhost:4566 sqs list-queues
+
+Pegar url da fila  
+aws --endpoint-url=http://localhost:4566 \
+sqs get-queue-url \
+--queue-name fila-email
+
+Ver mensagens não consumidas na fila  
+awslocal sqs receive-message \
+--queue-url http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/fila-email \
+--max-number-of-messages 10 \
+--wait-time-seconds 1

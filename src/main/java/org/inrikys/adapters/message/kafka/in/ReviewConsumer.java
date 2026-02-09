@@ -9,6 +9,7 @@ import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Message;
 import org.inrikys.adapters.message.kafka.out.ReviewProducer;
+import org.inrikys.adapters.message.sqs.out.SqsProducer;
 import org.jboss.logging.Logger;
 
 import java.nio.charset.StandardCharsets;
@@ -19,11 +20,14 @@ import java.util.stream.StreamSupport;
 public class ReviewConsumer {
 
     private final ReviewProducer reviewProducer;
+    private final SqsProducer sqsProducer;
+    private final String SQS_URL = "http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/fila-email";
 
     private static final Logger LOG = Logger.getLogger(ReviewConsumer.class);
 
-    public ReviewConsumer(ReviewProducer reviewProducer) {
+    public ReviewConsumer(ReviewProducer reviewProducer, SqsProducer sqsProducer) {
         this.reviewProducer = reviewProducer;
+        this.sqsProducer = sqsProducer;
     }
 
     @Incoming("reviews-created-in")
@@ -37,14 +41,9 @@ public class ReviewConsumer {
         return msg.ack();
     }
 
-    public void processEvent(Message<String> msg) throws Exception {
-
-        // process the message payload.
+    public void processEvent(Message<String> msg) {
         String payload = msg.getPayload();
-
-        System.out.println(payload);
-
-        throw new Exception("Teste");
+        sqsProducer.send(SQS_URL, payload);
     }
 
     public void handleEventException(Message<String> message) {
