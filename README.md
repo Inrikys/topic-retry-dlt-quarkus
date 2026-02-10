@@ -1,6 +1,6 @@
 # 📦 API de Avaliação de Produtos
 
-## Arquitetura da solução de avaliar o produto
+## Arquitetura da solução de avaliar o produto e resiliência
 
 ![Arquitetura do projeto](docs/assets/arquitetura-do-projeto.drawio.png)
 
